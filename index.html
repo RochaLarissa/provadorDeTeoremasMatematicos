@@ -1,0 +1,204 @@
+<meta charset = "UTF-8">
+<img src="download.png">
+<h2> Matemática Para Computação</h2>
+Larissa Rocha<br>
+<hr><br><br>
+
+<script>
+function resolveEquacao (termo)
+	{
+		for (var i=0; i < termo.length; i++)
+			{
+				//resolvendo & (e)
+				if (termo[i] == "&" && (termo[i-1] == "V" || termo[i-1] == "F") && (termo[i+1] == "V" || termo[i+1] == "F"))
+					{
+						if (termo[i-1] == "V" && termo[i+1] == "V")
+							{
+								termo.splice(i, 1, "V"); //substitui pela resposta o index i 
+								termo.splice(i-1, 1); //remove o conteudo do index i-1 
+								termo.splice(i, 1); //remove o conteudo do index i+1
+							}
+							else 
+								{
+									termo.splice(i, 1, "F"); //substitui pela resposta o index i 
+									termo.splice(i-1, 1); //remove o conteudo do index i-1 
+									termo.splice(i, 1); //remove o conteudo do index i+1
+								}
+					}
+				
+				//resolvendo | (ou)
+				if (termo[i] == "|" && (termo[i-1] == "V" || termo[i-1] == "F") && (termo[i+1] == "V" || termo[i+1] == "F"))
+					{
+						if (termo[i-1] == "F" && termo[i+1] == "F")
+							{
+								termo.splice(i, 1, "F"); //substitui pela resposta o index i 
+								termo.splice(i-1, 1); //remove o conteudo do index i-1 
+								termo.splice(i, 1); //remove o conteudo do index i+1
+							}
+							else 
+								{
+									termo.splice(i, 1, "V"); //substitui pela resposta o index i 
+									termo.splice(i-1, 1); //remove o conteudo do index i-1 
+									termo.splice(i, 1); //remove o conteudo do index i+1
+								}
+					}
+				
+				//resolvendo > (se então)
+				if (termo[i] == ">" && (termo[i-1] == "V" || termo[i-1] == "F") && (termo[i+1] == "V" || termo[i+1] == "F"))
+					{
+						if (termo[i-1] == "V" && termo[i+1] == "F")
+							{
+								termo.splice(i, 1, "F"); //substitui pela resposta o index i 
+								termo.splice(i-1, 1); //remove o conteudo do index i-1 
+								termo.splice(i, 1); //remove o conteudo do index i+1
+							}
+							else 
+								{
+									termo.splice(i, 1, "V"); //substitui pela resposta o index i 
+									termo.splice(i-1, 1); //remove o conteudo do index i-1 
+									termo.splice(i, 1); //remove o conteudo do index i+1
+								}
+					}
+				
+				
+				
+				//resolvendo = (se somente se)
+				if (termo[i] == "=" && (termo[i-1] == "V" || termo[i-1] == "F") && (termo[i+1] == "V" || termo[i+1] == "F"))
+					{
+						if ((termo[i-1] == "V" && termo[i+1] == "V") || (termo[i-1] == "F" && termo[i+1] == "F"))
+							{
+								termo.splice(i, 1, "V"); //substitui pela resposta o index i 
+								termo.splice(i-1, 1); //remove o conteudo do index i-1 
+								termo.splice(i, 1); //remove o conteudo do index i+1
+							}
+							else 
+								{
+									termo.splice(i, 1, "F"); //substitui pela resposta o index i 
+									termo.splice(i-1, 1); //remove o conteudo do index i-1 
+									termo.splice(i, 1); //remove o conteudo do index i+1
+								}
+					}
+				
+				
+			}
+	}
+
+function resolveNot (termo)
+	{
+		for (var i=0; i < termo.length; i++)
+		{
+			if (termo[i] == "~" && (termo[i+1] == "F" || termo[i+1] == "V"))
+				{
+					if (termo[i+1] == "F")
+						{
+							termo[i+1] = "V";
+						}
+					else if (termo[i+1] == "V")
+						{
+							termo[i+1] = "F";
+						}
+					termo.splice(i, 1); //remove o ~ localizado no index i verificado
+				}
+					
+		}
+	}
+
+var termo = [] , teorema;
+
+teorema = prompt("Informe o teorema que deseja provar: (use até 4 variáveis A B C D e os Conectores ~ & | > =)");
+document.write("Teorema proposto: " + teorema + "<br>");
+termo = teorema.split(""); //transforma a string em um array com preenchimento único a cada caractere
+console.log(termo);
+
+while (termo.length > 1)
+	{
+		//eliminando espaços vazios
+		for (var i=0; i < termo.length; i++)
+			{
+				if (termo[i] == " ")
+					{
+						termo.splice(i,1); //splice deleta o conteúdo do índice i no array
+					}
+			}
+			
+		//atribuindo valores V ou F aos termos
+		for (var i=0; i < termo.length; i++)
+			{
+				if (termo[i] == "A" || termo[i] == "a")
+					{
+						termo[i] = prompt("Informe o valor lógico de " + termo[i] + " com V ou F.");
+						for (var j=0; j < termo.length; j++)
+							{
+								if (termo[j] == "A" || termo[j] == "a")
+									{
+										termo[j] = termo[i];
+									}
+							}
+						document.write("Variável A: " + termo[i] + "<br>");
+					}
+				else if (termo[i] == "B" || termo[i] == "b")
+					{
+						termo[i] = prompt("Informe o valor lógico de " + termo[i] + " com V ou F.");
+						for (var j=0; j < termo.length; j++)
+							{
+								if (termo[j] == "B" || termo[j] == "b")
+									{
+										termo[j] = termo[i];
+									}
+							}
+						document.write("Variável B: " + termo[i] + "<br>");
+					}
+				else if (termo[i] == "C" || termo[i] == "c")
+					{
+						termo[i] = prompt("Informe o valor lógico de " + termo[i] + " com V ou F.");
+						for (var j=0; j < termo.length; j++)
+							{
+								if (termo[j] == "C" || termo[j] == "c")
+									{
+										termo[j] = termo[i];
+									}
+							}
+						document.write("Variável C: " + termo[i] + "<br>");
+					}
+				else if (termo[i] == "D" || termo[i] == "d")
+					{
+						termo[i] = prompt("Informe o valor lógico de " + termo[i] + " com V ou F.");
+						for (var j=0; j < termo.length; j++)
+							{
+								if (termo[j] == "D" || termo[j] == "d")
+									{
+										termo[j] = termo[i];
+									}
+							}
+						document.write("Variável D: " + termo[i] + "<br>");
+					}
+			}
+				
+		//verifico se há (não)~ DENTRO DOS PARÊNTESES e modifico os valores subsequentes
+		resolveNot (termo);
+			
+		//resolvendo & | > = dentro dos parênteses
+		resolveEquacao (termo);
+
+		//retiro os parênteses
+		for (var i=0; i < termo.length; i++)
+			{
+				if (termo[i] == "(" || termo[i] == ")")
+					{
+						termo.splice(i,1); //splice deleta o conteúdo do índice i no array
+					}
+			}
+
+		//rodo o código novamente, agora sem parênteses
+		//verifico se há (não)~ e modifico os valores subsequentes
+		resolveNot (termo);
+			
+		//resolvendo & | > = 
+		resolveEquacao (termo);
+	}
+document.write("Resultado do teorema: " + termo + "<br>");
+console.log(termo);
+
+
+
+</script>
