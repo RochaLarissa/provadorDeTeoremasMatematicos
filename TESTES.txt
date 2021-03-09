@@ -1,0 +1,26 @@
+------------VAMOS TESTAR?--------------
+
+//Nota de aula 5, pg 23
+(p v q) ^ ~p
+traduzindo:
+(A|B)&~A
+
+//Nota de aula 4, pg 4
+p v ~(p ^ q)
+traduzindo:
+A|~(A&B)
+
+//Nota de aula 4, pg 5
+p ^ q -> (p <-> q)
+traduzindo
+A&B > (A = B)
+
+//Nota de aula 4, pg 8
+((p -> q) -> r) -> (p -> (q -> r))
+traduzindo
+((A>B) > C) > (A > (B > C))
+
+//Nota de aula 4, pg 12
+(p ^ q) ^ ~(p v q)
+traduzindo
+(A&B) & ~(A | B)
